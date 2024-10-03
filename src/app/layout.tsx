@@ -12,7 +12,7 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-	title: "Amazon Scraper",
+	title: "Amazon Scrapers",
 	description: "A Open Source Amazon Product Scraper",
 };
 

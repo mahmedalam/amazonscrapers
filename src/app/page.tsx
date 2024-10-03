@@ -42,7 +42,7 @@ export default function Home() {
 			{/* HEADER */}
 			<div className="relative">
 				<div className="w-full h-full absolute top-0 flex flex-col items-center justify-center gap-5 bg-black/60 text-primary text-[32px] font-bold italic uppercase">
-					<h1>amazon scraper</h1>
+					<h1>amazon scrapers</h1>
 					<SpiderToCsvSvg />
 				</div>
 
