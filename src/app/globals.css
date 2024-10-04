@@ -8,6 +8,11 @@
 		text-wrap: balance;
 	}
 
+	.text-gradient {
+		background: var(--gradient);
+		@apply bg-clip-text text-transparent;
+	}
+
 	.h1 {
 		@apply text-base font-bold uppercase;
 	}
@@ -19,6 +24,7 @@
 
 @layer base {
 	:root {
+		--gradient: linear-gradient(90deg, #FFF600 0%, #00FF1D 100%);
 		--background: #FFFFFF;
 		--foreground: #000000;
 		--card: 0 0% 100%;
