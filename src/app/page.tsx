@@ -62,7 +62,7 @@ export default function Home() {
 				<div className="w-full h-full absolute top-0 flex flex-col items-center justify-center gap-[10px] pt-4 px-5 bg-black/60 text-primary text-[32px] font-bold">
 					<h1 className="italic uppercase">amazon scrapers</h1>
 
-					<div className="para w-full h-9 relative flex flex-col items-center text-center capitalize *:text-gradient">
+					<div className="para w-full h-9 relative flex flex-col items-center text-white text-center capitalize">
 						<motion.h2
 							key={currentIndex} // Change key to trigger re-animation
 							initial="hidden"
