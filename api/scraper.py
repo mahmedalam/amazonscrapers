@@ -85,7 +85,9 @@ def scrape_search(html: str) -> list:
         except:
             price = None
 
-        image_url = product.css_first("img").attrs["src"]
+        image_url = product.css_first("img").attrs["src"].split(".")
+        image_url[-2] = "_AC_UY218_QL70_"
+        image_url = ".".join(image_url)
 
         products_data.append(
             {"asin": asin, "title": title, "price": price, "image_url": image_url}
@@ -94,17 +96,23 @@ def scrape_search(html: str) -> list:
     return products_data
 
 
-def scrape_products_list(field_name: str, products: list) -> list:
-    return [product[field_name] for product in products]
+def data_to_csv(field_names: list, products: list) -> str:
+    csv_file = io.StringIO(newline="")
+    writer = csv.DictWriter(csv_file, fieldnames=field_names)
+    writer.writeheader()
+    writer.writerows(products)
+
+    return csv_file.getvalue()
 
 
 if __name__ == "__main__":
     captcha()
     results = scrape_search(get("https://www.amazon.com/s", {"k": "led+tv"}).text)
 
-    with open("leds.csv", "w", newline="") as csv_file:
-        field_names = ["asin", "title", "price", "image_url"]
-        writer = csv.DictWriter(csv_file, fieldnames=field_names)
+    csv_file = io.StringIO(newline="")
+    field_names = ["asin", "title", "price", "image_url"]
+    writer = csv.DictWriter(csv_file, fieldnames=field_names)
+    writer.writeheader()
+    writer.writerows(results)
 
-        writer.writeheader()
-        writer.writerows(results)
+    print(csv_file.getvalue())

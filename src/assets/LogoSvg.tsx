@@ -3,7 +3,7 @@ import { SvgProps } from '@/props/svgProps'
 
 export default function LogoSvg({ className, ...events }: SvgProps) {
     return (
-        <svg className={`${className} cursor-pointer`} {...events} width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className={className} {...events} width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_56_72)">
                 <path d="M42.5008 31.1224L43.5045 23.9808C38.3182 23.2519 35.7374 17.1449 38.9917 13.0414L33.2045 8.58682C29.9101 12.741 23.3634 11.8207 21.3416 6.91941L14.5507 9.60627C16.5479 14.4478 12.381 19.6067 7.19464 18.8778L6.19096 26.0194C11.3772 26.7483 13.958 32.8553 10.7036 36.9588L16.4909 41.4133C19.7869 37.2571 26.3367 38.1774 28.3596 43.0812L35.1504 40.3944C33.1534 35.5529 37.3147 30.3935 42.5008 31.1224Z" stroke="#00FF1D" stroke-width="1.57143" stroke-linecap="round" stroke-linejoin="round" />
                 <g clip-path="url(#clip1_56_72)">

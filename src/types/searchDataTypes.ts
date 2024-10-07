@@ -3,12 +3,11 @@ export default interface SearchDataTypes {
     "captcha-time": any,
     "scraping-time": any,
     "products-count": number,
-    "asins": string[],
-    "field-names": string[],
     "products": {
         "asin": string,
         "title": string,
         "price": string,
         "image_url": string
-    }[]
+    }[],
+    "csv": string
 }

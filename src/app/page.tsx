@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { set, z } from "zod"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -31,11 +31,13 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { subHeadings } from "@/constants"
 import SearchDataTypes from "@/types/searchDataTypes"
+import LoadingSvg from "@/assets/LoadingSvg"
 
 
 export default function Home() {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [searchData, setSearchData] = useState<SearchDataTypes | null>(null)
+	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -58,14 +60,30 @@ export default function Home() {
 		},
 	})
 
-	const onSubmit = (data: z.infer<typeof searchBarSchema>) => {
-		searchProducts(data.text)
+	const onSubmit = async (data: z.infer<typeof searchBarSchema>) => {
+		setLoading(true)
+		await searchProducts(data.text)
+		setLoading(false)
 	}
 
 	const searchProducts = async (k: string) => {
 		const response = await fetch(`/api/py/search?k=${k}`)
 		const data = await response.json()
 		setSearchData(data)
+	}
+
+	const downloadCsv = () => {
+		if (searchData?.csv) { // Check if searchData.csv is defined
+			const csv = new Blob([searchData.csv], { type: "text/csv" });
+			const url = URL.createObjectURL(csv);
+			const link = document.createElement("a");
+			link.href = url;
+			link.download = "products.csv";
+			link.click();
+			URL.revokeObjectURL(url);
+		} else {
+			console.error("CSV data is undefined");
+		}
 	}
 
 
@@ -125,12 +143,22 @@ export default function Home() {
 								</FormItem>
 							)}
 						/>
-						<Button className="min-w-[52px] p-0 rounded-none" type="submit"><SearchSvg /></Button>
+						<Button className="min-w-[52px] p-0 rounded-none" type="submit" disabled={loading}>
+							<SearchSvg />
+						</Button>
 					</form>
 				</Form>
 
+				{/* LOADING */}
+				{loading && (
+					<div className="flex flex-col items-center gap-3">
+						<h1 className="h1 italic">loading</h1>
+						<LoadingSvg className="animate-spin" />
+					</div>
+				)}
+
 				{/* RESULTS */}
-				{searchData && <>
+				{searchData && !loading && (<>
 					<div className="flex flex-col items-center gap-3">
 						<h1 className="h1 italic">results</h1>
 
@@ -141,6 +169,7 @@ export default function Home() {
 										<Card
 											image={product.image_url}
 											title={product.title}
+											price={product.price}
 											asin={product.asin}
 										/>
 									</CarouselItem>
@@ -156,11 +185,10 @@ export default function Home() {
 
 					{/* ACTION BUTTONS */}
 					<div className="flex justify-center gap-4">
-						<Button><SpiderSvg />Scrape</Button>
-						<Button><CsvFileSvg />Download</Button>
+						<Button onClick={downloadCsv}><CsvFileSvg />Download</Button>
 					</div>
 				</>
-				}
+				)}
 			</div>
 
 		</main>

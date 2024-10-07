@@ -1,6 +1,6 @@
 from time import time
 from fastapi import FastAPI
-from api.scraper import captcha, get, scrape_products_list, scrape_search
+from api.scraper import captcha, data_to_csv, get, scrape_search
 
 
 ### Create FastAPI instance with custom docs and openapi url
@@ -28,9 +28,8 @@ def search(k: str):
             "captcha-time": float(f"{captcha_time_end - captcha_time_start:.2f}"),
             "scraping-time": float(f"{scraping_time_end - scraping_time_start:.2f}"),
             "products-count": len(products),
-            "asins": scrape_products_list("asin", products),
-            "field-names": ["asin", "title", "price", "image_url"],
             "products": products,
+            "csv": data_to_csv(["asin", "title", "price", "image_url"], products),
         }
 
     return {"captcha-status-code": captcha_response.status_code}
