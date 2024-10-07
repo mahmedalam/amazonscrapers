@@ -1,5 +1,5 @@
 {
-  "name": "amazon-scraper-web",
+  "name": "amazonscrapers",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -17,6 +17,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "concurrently": "^9.0.1",
+    "embla-carousel-react": "^8.3.0",
     "framer-motion": "^11.11.1",
     "lucide-react": "^0.447.0",
     "next": "14.2.14",

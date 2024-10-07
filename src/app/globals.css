@@ -82,4 +82,8 @@
 	body {
 		@apply bg-background text-foreground font-roboto;
 	}
+
+	main {
+		min-height: calc(100vh - 60px);
+	}
 }

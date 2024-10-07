@@ -1,4 +1,4 @@
-export interface CardTypes {
+export default interface CardTypes {
     image: string
     title: string
     asin: string

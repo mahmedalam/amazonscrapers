@@ -13,20 +13,29 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
+import {
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious,
+} from "@/components/ui/carousel"
+
 import Image from "next/image";
 import { searchBarSchema } from "@/schemas/searchBarSchema";
 import SearchSvg from "@/assets/SearchSvg"
 import Card from "@/components/Card"
-import ArrowLeftSvg from "@/assets/ArrowLeftSvg"
 import SpiderSvg from "@/assets/SpiderSvg"
 import CsvFileSvg from "@/assets/CsvFileSvg"
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { subHeadings } from "@/constants"
+import SearchDataTypes from "@/types/searchDataTypes"
 
 
 export default function Home() {
 	const [currentIndex, setCurrentIndex] = useState(0);
+	const [searchData, setSearchData] = useState<SearchDataTypes | null>(null)
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -50,7 +59,13 @@ export default function Home() {
 	})
 
 	const onSubmit = (data: z.infer<typeof searchBarSchema>) => {
-		console.log(data)
+		searchProducts(data.text)
+	}
+
+	const searchProducts = async (k: string) => {
+		const response = await fetch(`/api/py/search?k=${k}`)
+		const data = await response.json()
+		setSearchData(data)
 	}
 
 
@@ -60,9 +75,9 @@ export default function Home() {
 			{/* HEADER */}
 			<div className="relative">
 				<div className="w-full h-full absolute top-0 flex flex-col items-center justify-center gap-[10px] pt-4 px-5 bg-black/60 text-primary text-[32px] font-bold">
-					<h1 className="italic uppercase">amazon scrapers</h1>
+					<h1 className="relative z-10 italic uppercase">amazon scrapers</h1>
 
-					<div className="para w-full h-9 relative flex flex-col items-center text-white text-center capitalize">
+					<div className="para w-full h-9 relative z-10 flex flex-col items-center text-white text-center capitalize">
 						<motion.h2
 							key={currentIndex} // Change key to trigger re-animation
 							initial="hidden"
@@ -115,27 +130,37 @@ export default function Home() {
 				</Form>
 
 				{/* RESULTS */}
-				<div className="flex flex-col items-center gap-3">
-					<h1 className="h1 italic">results</h1>
+				{searchData && <>
+					<div className="flex flex-col items-center gap-3">
+						<h1 className="h1 italic">results</h1>
 
-					<Card
-						image="https://m.media-amazon.com/images/I/81R3dLptKcL._AC_SL1500_.jpg"
-						title="VIZIO 40-inch Full HD 1080p Smart TV with DTS Virtual: X, Alexa Compatibility, Google Cast Built-in, Bluetooth Headphone Capable, (VFD40M-08 New)"
-						asin="B0CXG3HMX1"
-					/>
-
-					<div className="w-full flex items-center justify-between">
-						<Button className="w-28 h-9 rounded-l-[36px] rounded-r-md"><ArrowLeftSvg /></Button>
-						<p className="para">1 of 16</p>
-						<Button className="rotate-180 w-28 h-9 rounded-l-[36px] rounded-r-md"><ArrowLeftSvg /></Button>
+						<Carousel className="w-full grid gap-3">
+							<CarouselContent>
+								{searchData["products"].map((product) => (
+									<CarouselItem key={product.asin}>
+										<Card
+											image={product.image_url}
+											title={product.title}
+											asin={product.asin}
+										/>
+									</CarouselItem>
+								))}
+							</CarouselContent>
+							<div className="w-full flex items-center justify-between">
+								<CarouselPrevious />
+								<p className="para w-8 h-8 flex items-center justify-center italic border border-black/10 rounded-full">{searchData["products-count"]}</p>
+								<CarouselNext />
+							</div>
+						</Carousel>
 					</div>
-				</div>
 
-				{/* ACTION BUTTONS */}
-				<div className="flex justify-center gap-4">
-					<Button><SpiderSvg />Scrape</Button>
-					<Button><CsvFileSvg />Download</Button>
-				</div>
+					{/* ACTION BUTTONS */}
+					<div className="flex justify-center gap-4">
+						<Button><SpiderSvg />Scrape</Button>
+						<Button><CsvFileSvg />Download</Button>
+					</div>
+				</>
+				}
 			</div>
 
 		</main>
