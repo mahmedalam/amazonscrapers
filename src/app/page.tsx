@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { set, z } from "zod"
+import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -25,7 +25,6 @@ import Image from "next/image";
 import { searchBarSchema } from "@/schemas/searchBarSchema";
 import SearchSvg from "@/assets/SearchSvg"
 import Card from "@/components/Card"
-import SpiderSvg from "@/assets/SpiderSvg"
 import CsvFileSvg from "@/assets/CsvFileSvg"
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
