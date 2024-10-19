@@ -1,3 +1,25 @@
+import AboutSvg from "@/assets/AboutSvg"
+import EmailSvg from "@/assets/EmailSvg"
+import HomeSvg from "@/assets/HomeSvg"
+
+export const navigation = [
+    {
+        label: "Home",
+        href: "/",
+        img: <HomeSvg />
+    },
+    {
+        label: "About Us",
+        href: "/about-us",
+        img: <AboutSvg />
+    },
+    {
+        label: "Contact Us",
+        href: "/contact-us",
+        img: <EmailSvg />
+    },
+]
+
 export const subHeadings = [
     "Unlock Amazon's Hidden Insights Instantly",
     "Effortless Data Extraction from Amazon's Marketplace",

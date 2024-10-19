@@ -86,7 +86,7 @@ def scrape_search(html: str) -> list:
             price = None
 
         image_url = product.css_first("img").attrs["src"].split(".")
-        image_url[-2] = "_AC_UY218_QL70_"
+        image_url[-2] = "_AC_UY360_QL70_"
         image_url = ".".join(image_url)
 
         products_data.append(

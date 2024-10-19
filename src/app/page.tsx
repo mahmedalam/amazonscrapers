@@ -31,11 +31,13 @@ import { useState, useEffect } from "react";
 import { subHeadings } from "@/constants"
 import SearchDataTypes from "@/types/searchDataTypes"
 import LoadingSvg from "@/assets/LoadingSvg"
+import products from "@/demo/products"
 
 
 export default function Home() {
 	const [currentIndex, setCurrentIndex] = useState(0);
-	const [searchData, setSearchData] = useState<SearchDataTypes | null>(null)
+	const [isDemo, setIsDemo] = useState(true)
+	const [searchData, setSearchData] = useState<SearchDataTypes>(products)
 	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
@@ -63,6 +65,7 @@ export default function Home() {
 		setLoading(true)
 		await searchProducts(data.text)
 		setLoading(false)
+		setIsDemo(false)
 	}
 
 	const searchProducts = async (k: string) => {
@@ -90,12 +93,13 @@ export default function Home() {
 		<main>
 
 			{/* HEADER */}
-			<div className="relative">
-				<div className="w-full h-full absolute top-0 flex flex-col items-center justify-center gap-[10px] pt-4 px-5 bg-black/60 text-primary text-[32px] font-bold">
-					<h1 className="relative z-10 italic uppercase">amazon scrapers</h1>
+			<div className="relative bg-[#45CCCF]">
+				<div className="w-full h-full absolute top-0 flex flex-col items-center justify-center md:gap-[10px] bg-black/60">
+					<h1 className="text-primary text-[32px] sm:text-[44px] md:text-5xl lg:text-[52px] font-bold italic uppercase">amazon scrapers</h1>
 
-					<div className="para w-full h-9 relative z-10 flex flex-col items-center text-white text-center capitalize">
+					<div className="para sm:text-lg md:text-xl lg:text-[22px] w-full h-9 flex flex-col items-center text-white text-center capitalize">
 						<motion.h2
+							className="px-6"
 							key={currentIndex} // Change key to trigger re-animation
 							initial="hidden"
 							animate="visible"
@@ -110,21 +114,22 @@ export default function Home() {
 				</div>
 
 				<Image
+					className="mx-auto"
 					src="/header.webp"
 					alt="Header Image"
-					width={1080}
-					height={1080}
-					quality={24}
+					width={1000}
+					height={1000}
+					quality={90}
 					priority
 				/>
 			</div>
 
 			{/* CONTAINER */}
-			<div className="flex flex-col gap-6 py-6 px-4">
+			<div className="flex flex-col gap-6 py-6 px-4 sm:p-8">
 				{/* SEARCH BAR */}
 				<Form {...form}>
 					<form
-						className="w-full h-9 flex border-2 border-secondary rounded shadow-b-light"
+						className="max-w-5xl mx-auto w-full h-9 sm:h-[46px] flex border-2 border-secondary rounded sm:rounded-md shadow-b-light"
 						onSubmit={form.handleSubmit(onSubmit)}
 					>
 						<FormField
@@ -134,7 +139,7 @@ export default function Home() {
 								<FormItem className="w-full">
 									<FormControl>
 										<Input
-											className="w-full h-full border-0 rounded-none capitalize"
+											className="sm:px-[22px] w-full h-full border-0 rounded-none capitalize"
 											placeholder="Search"
 											{...field}
 										/>
@@ -142,8 +147,8 @@ export default function Home() {
 								</FormItem>
 							)}
 						/>
-						<Button className="min-w-[52px] p-0 rounded-none" type="submit" disabled={loading}>
-							<SearchSvg />
+						<Button className="min-w-[52px] sm:min-w-[66px] !p-0 rounded-none" type="submit" disabled={loading}>
+							<SearchSvg className="sm:size-8" />
 						</Button>
 					</form>
 				</Form>
@@ -151,20 +156,20 @@ export default function Home() {
 				{/* LOADING */}
 				{loading && (
 					<div className="flex flex-col items-center gap-3">
-						<h1 className="h1 italic">loading</h1>
+						<h1 className="h1 sm:h1-sm italic">loading</h1>
 						<LoadingSvg className="animate-spin" />
 					</div>
 				)}
 
 				{/* RESULTS */}
 				{searchData && !loading && (<>
-					<div className="flex flex-col items-center gap-3">
-						<h1 className="h1 italic">results</h1>
+					<div className="flex flex-col items-center gap-3 sm:gap-4">
+						<h1 className="h1 sm:h1-sm italic">{isDemo ? "demo" : "results"}</h1>
 
 						<Carousel className="w-full grid gap-3">
 							<CarouselContent>
 								{searchData["products"].map((product) => (
-									<CarouselItem key={product.asin}>
+									<CarouselItem className="lg:basis-1/2 2xl:basis-1/3" key={product.asin}>
 										<Card
 											image={product.image_url}
 											title={product.title}
@@ -176,7 +181,7 @@ export default function Home() {
 							</CarouselContent>
 							<div className="w-full flex items-center justify-between">
 								<CarouselPrevious />
-								<p className="para w-8 h-8 flex items-center justify-center italic border border-black/10 rounded-full">{searchData["products-count"]}</p>
+								<p className="para size-8 sm:size-9 flex-center italic border border-black/10 rounded-full">{searchData["products-count"]}</p>
 								<CarouselNext />
 							</div>
 						</Carousel>
@@ -184,7 +189,7 @@ export default function Home() {
 
 					{/* ACTION BUTTONS */}
 					<div className="flex justify-center gap-4">
-						<Button onClick={downloadCsv}><CsvFileSvg />Download</Button>
+						<Button className="sm:rounded-lg" onClick={downloadCsv}><CsvFileSvg className="sm:size-8" />Download</Button>
 					</div>
 				</>
 				)}

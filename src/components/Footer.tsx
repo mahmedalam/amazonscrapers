@@ -1,4 +1,5 @@
 import GithubSvg from "@/assets/GithubSvg";
+import LogoSvg from "@/assets/LogoSvg";
 import { footerLinks } from "@/constants";
 import Link from "next/link";
 
@@ -6,7 +7,10 @@ export default function Footer() {
     return (
         <footer className="para flex flex-col items-center gap-3 py-4 border-t-2 bg-secondary text-primary capitalize">
 
-            <Link href={"https://github.com/mahmedalam"} target="_blank"><GithubSvg /></Link>
+            <div className="flex items-center justify-between px-6">
+                <LogoSvg />
+                <Link href={"https://github.com/mahmedalam"} target="_blank"><GithubSvg /></Link>
+            </div>
 
             <div className="w-full h-[2px] bg-white/10" />
 
@@ -18,7 +22,7 @@ export default function Footer() {
             <div className="w-full grid grid-cols-2 justify-items-center gap-3 underline">
                 {footerLinks.map((link) => (
                     <Link
-                        className="w-fit hover:opacity-90"
+                        className="w-fit transition-opacity hover:opacity-90"
                         key={link.href}
                         href={link.href}
                     >

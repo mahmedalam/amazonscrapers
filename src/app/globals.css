@@ -8,12 +8,24 @@
 		text-wrap: balance;
 	}
 
+	.flex-center {
+		@apply flex items-center justify-center;
+	}
+
 	.h1 {
 		@apply text-base font-bold uppercase;
 	}
 
+	.h1-sm {
+		@apply text-[22px] font-bold uppercase;
+	}
+
 	.para {
 		@apply text-sm font-medium tracking-[0.4px];
+	}
+
+	.para-sm {
+		@apply text-base font-medium tracking-[0.4px];
 	}
 }
 

@@ -6,7 +6,7 @@ export default interface SearchDataTypes {
     "products": {
         "asin": string,
         "title": string,
-        "price": string,
+        "price": string | null,
         "image_url": string
     }[],
     "csv": string
