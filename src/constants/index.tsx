@@ -30,19 +30,19 @@ export const subHeadings = [
 
 export const footerLinks = [
     {
-        label: "contact us",
+        label: "Contact Us",
         href: "/contact-us",
     },
     {
-        label: "about us",
+        label: "About Us",
         href: "/about-us",
     },
     {
-        label: "privacy policy",
+        label: "Privacy Policy",
         href: "/privacy-policy",
     },
     {
-        label: "terms & conditions",
+        label: "Terms & Conditions",
         href: "/terms-and-conditions",
     }
 ]

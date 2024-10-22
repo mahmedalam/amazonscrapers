@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Card({ image, title, price, asin }: CardTypes) {
     return (
-        <div className="relative para sm:para-sm w-full h-full flex flex-col items-center justify-center gap-2 py-2 border-b-2 border-black/50">
+        <div className="relative para sm:para-sm w-full h-full flex-center flex-col gap-2 py-2 border-b-2 border-black/50">
             <Link
                 className="size-7 sm:size-10 absolute top-0 right-0"
                 href={`https://amazon.com/dp/${asin}`}

@@ -15,7 +15,7 @@ export default function Navbar() {
         <nav className="overflow-hidden h-[60px] sm:h-[70px] sticky top-0 z-50 flex-center px-6 md:px-7 lg:px-8 bg-secondary text-primary border-b-2 shadow-b-light">
             <div className="sm:hidden w-full flex items-center justify-between">
                 <LogoSvg />
-                <span className="h1 italic uppercase pr-2">amazon scrapers</span>
+                <span className="h1 italic pr-2">amazon scrapers</span>
                 <MenuSvg />
             </div>
 

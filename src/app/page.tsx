@@ -164,7 +164,7 @@ export default function Home() {
 				{/* RESULTS */}
 				{searchData && !loading && (<>
 					<div className="flex flex-col items-center gap-3 sm:gap-4">
-						<h1 className="h1 sm:h1-sm italic">{isDemo ? "demo" : "results"}</h1>
+						<h1 className="h1 sm:h1-sm italic">{isDemo ? "demos" : "results"}</h1>
 
 						<Carousel className="w-full grid gap-3">
 							<CarouselContent>
