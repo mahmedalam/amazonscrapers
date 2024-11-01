@@ -26,13 +26,11 @@ def index():
     return {"message": "Hello from FastAPI"}
 
 
-captcha_time_start = time()
-captcha_response = captcha()
-captcha_time_end = time()
-
-
 @app.get("/api/py/search")
 def search(k: str):
+    captcha_time_start = time()
+    captcha_response = captcha()
+    captcha_time_end = time()
 
     if captcha_response.status_code == 200:
         scraping_time_start = time()
