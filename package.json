@@ -7,7 +7,7 @@
     "next-dev": "next dev",
     "dev": "concurrently \"npm run next-dev\" \"npm run fastapi-dev\"",
     "build": "next build",
-    "next-start": "next start",
+    "next-start": "next dev --port $PORT",
     "start": "concurrently \"npm run next-start\" \"npm run fastapi-dev\"",
     "lint": "next lint"
   },
