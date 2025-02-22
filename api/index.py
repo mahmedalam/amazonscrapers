@@ -3,7 +3,8 @@ from fastapi import FastAPI
 from api.scraper import captcha, data_to_csv, get, scrape_search
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+### Create FastAPI instance with custom docs and openapi url
+app = FastAPI(docs_url="/api/py/docs", openapi_url="/api/py/openapi.json")
 
 origins = [
     "http://localhost.tiangolo.com",
